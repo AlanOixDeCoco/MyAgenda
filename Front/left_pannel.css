@@ -1,0 +1,120 @@
+/* IDs */
+#leftPannel{
+    font-weight: 300;
+    font-size: 4vw;
+    z-index: 5;
+    position: fixed;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    padding: 3vw;
+}
+
+#searchBar{
+    width: 100%;
+    display: flex;
+}
+
+#searchInput{
+    position: relative;
+    width: 100%;
+    padding-left: 3vw;
+    font-size: 4vw;
+    font-weight: 300;
+    height: 10vw;
+    border-radius: 2vw;
+    border-width: 0px;
+    box-shadow: inset 0 0 .8vw #00000080;
+}
+
+#agendasList{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+#addAgenda{
+    width: 6vw;
+}
+
+/* CLASSES */
+.separationLine{
+    border: .2vw solid #CCCCCC;
+    border-radius: .2vw;
+    margin: 3vw 0 3vw 0;
+}
+
+.showLeft{ /* permet d'afficher le slider gauche */
+    top: 14vw;
+    left: 0;
+    right: 14vw;
+    bottom: 0vw;
+    box-shadow: 0 0 .8vw black;
+    transition: .5s;
+}
+
+.hideLeft{ /* permet de masquer le slider gauche */
+    top: 14vw;
+    left: -100%;
+    right: 100%;
+    bottom: 0vw;
+    transition: .5s;
+}
+
+.agendaBlock{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.agendaTitle{
+    display: flex;
+    height: 6vw;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.agendaName{
+    display: flex;
+    align-items: center;
+    height: 100%;
+}
+
+.agendaName img{
+    height: 100%;
+    margin-right: 1vw;
+}
+
+.agendaName h1{
+    font-size: 6vw;
+    font-weight: 500;
+}
+
+.agendaSettings{
+    height: 80%;
+    margin-right: -3vw;
+}
+
+.agendaSettings img{
+    height: 100%;
+    padding-right: 3vw;
+}
+
+.categoriesList{
+    margin-left: 4vw;
+    font-size: 5vw;
+    font-weight: 300;
+}
+
+.sliderCategory{
+    display: flex;
+    align-items: center;
+    height: 5vw;
+    margin-top: 1.5vw;
+}
+
+.sliderCategory img{
+    height: 100%;
+    padding-right: 1vw;
+}

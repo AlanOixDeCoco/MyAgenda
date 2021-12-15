@@ -1,65 +1,103 @@
-@import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
-*{
-    margin: 0px;
-    padding: 0px;
-    font-family: 'Rubik', sans-serif;
-}
-
-html{
-    height: 100%;
-}
-
-body{
-    height: 100%;
-    font-size: 5vw;
-    color: #000000;
-}
-
 /* IDs */
-#navHeader{
-    z-index: 10;
-    position: -webkit-sticky;
-    position: sticky;
-    top: 0vw;
-    display: inline-flex;
+#agendaContent{
+    display: flex;
+    flex-direction: column;
+    padding: 4vw 4vw 50vw 4vw;
+    z-index: 0;
+}
+
+#addCategory{
+    width: 8vw;
+}
+
+/* CLASSES */
+.categoryBlock{
+    /* Gradient */
+    background: rgb(114,203,242);
+    background: -moz-linear-gradient(135deg, rgba(114,203,242,1) 0%, rgba(242,201,240,1) 75%);
+    background: -webkit-linear-gradient(135deg, rgba(114,203,242,1) 0%, rgba(242,201,240,1) 75%);
+    background: linear-gradient(135deg, rgba(114,203,242,1) 0%, rgba(242,201,240,1) 75%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#72cbf2",endColorstr="#f2c9f0",GradientType=1);
+    /*          */
+    border-radius: 6vw;
+    box-shadow: 0 .4vw .8vw #00000086;
+    margin-bottom: 5vw;
+    padding: 3vw;
+    display: flex;
+    flex-direction: column;
+}
+
+.categoryHeader{
+    display: flex;
+    flex-direction: row;
     justify-content: space-between;
-    width: 100%;
-    height: 14vw;
-    margin: 0vw;
-    padding: 0vw;
-    background: white;
-    box-shadow: 0 0 .8vw black;
+    height: 8vw;
 }
 
-#navHeader div{
-    display: inline-flex;
-    justify-content: center;
+.categoryTitle{
+    display: flex;
     align-items: center;
+    height: 9vw;
+    padding: 0vw 2vw 0vw 2vw;
+    background: #FFFFFF;
+    border-radius: 3vw;
+    box-shadow: inset 0 .3vw .6vw #00000086;
 }
 
-#navHeader div *{
-    padding: .5vw;
-    font-size: 5vw;
-    font-weight: 600;
+.categoryTitle p{
+    font-weight: 800;
+    font-size: 9vw;
+    color: #333333;
 }
 
-#agendaIcon{
-    display: block;
+.categoryTitle img{
     height: 7vw;
+    margin-right: 1vw;
 }
 
-#navIcon{
-    display: block;
-    padding: 3.5vw;
-}
-
-#navPP{
-    display: block;
-    padding: 2vw;
+.notifImage{
     border-radius: 100%;
+    height: 9vw;
+    margin: -.5vw -.5vw 0vw 0vw;
+    box-shadow: 0 .3vw .6vw #00000086;
 }
 
-/* Classes */
-.clickable{
-    cursor: pointer;
+.categoryGroups{
+    font-size: 6vw;
+    font-weight: 300;
+    color: #333333;
+    margin: 2vw 0vw 2vw .5vw;
+}
+
+.categoryInfos{
+    display: flex;
+    flex-direction: column;
+    background: #FFFFFF66;
+    border-radius: 4vw;
+    box-shadow: inset 0 .3vw .6vw #00000086;
+    padding: 2.5vw;
+}
+
+.infoLine{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: 5.5vw;
+    color: #333333;
+}
+.infoLine img{
+    height: 100%;
+}
+.infoLine p{
+    margin-left: 2vw;
+    font-size: 6vw;
+}
+
+.taskState{
+    margin-bottom: 2.5vw;
+    font-weight: 800;
+}
+
+.nextDeadline{
+    font-weight: 300;
 }

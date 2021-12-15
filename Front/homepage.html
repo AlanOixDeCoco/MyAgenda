@@ -5,10 +5,17 @@
     <title>Home</title>
     <link rel="stylesheet" href="homepage.css">
     <script src="jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/node-forge@0.7.0/dist/forge.min.js"></script>
 </head>
 <body>
     <div id="connexionBox">
         <h1>Connexion</h1>
+            <label for="email">E-Mail :</label><br>
+            <input type="email" id="email" name="email" value=""><br>
+            <label for="password">Mot de passe :</label><br>
+            <input type="password" id="password" name="password" value=""><br><br>
+            <button onclick="submitLogin(email.value, password.value)">Se connecter</button>
     </div>
+    <script src="homepage.js"></script>
 </body>
 </html>

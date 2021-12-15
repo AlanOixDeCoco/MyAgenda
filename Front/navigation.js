@@ -1,7 +1,7 @@
 // Noms états
-const MAIN_STATE = 0
-const AGENDAS_STATE = 1
-const PROFILE_STATE = 2
+const MAIN_STATE = 0;
+const AGENDAS_STATE = 1;
+const PROFILE_STATE = 2;
 
 // Icons nav
 const ICON_AGENDAS_LIST = "icons/nav/agendas.png";

@@ -8,6 +8,7 @@ const agendaRoute = require("./routes/agendaRoute");
 const taskRoute = require("./routes/taskRoute");
 const subjectRoute = require("./routes/subjectRoute");
 const searchRoute = require("./routes/searchRoute");
+const authRoute = require("./routes/authRoute");
 
 const app = express();
 const port = 3000;
@@ -23,5 +24,6 @@ app.use('/agendas', agendaRoute);
 app.use('/tasks', taskRoute);
 app.use('/subjects', subjectRoute);
 app.use('/search', searchRoute);
+app.use('/auth', authRoute);
 
 app.listen(port, () => console.log(`http://localhost:${port}/`));

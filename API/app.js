@@ -26,4 +26,11 @@ app.use('/subjects', subjectRoute);
 app.use('/search', searchRoute);
 app.use('/auth', authRoute);
 
+app.get('/', (req, res) => {
+    res.json({
+        route: '/',
+        authentication: false
+    });
+});
+
 app.listen(port, () => console.log(`http://localhost:${port}/`));

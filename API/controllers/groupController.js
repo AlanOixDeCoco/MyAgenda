@@ -14,16 +14,16 @@ module.exports = {
             offset = Number(req.query.offset);
 
         model.selectAll(limit, offset)
-            .then((res) => {
-
+            .then((results) => {
+                res.send(JSON.stringify(results));
             })
             .catch((err) => console.error(err));
     },
 
     getID: (req, res) => {
         model.selectID(req.params.groupID)
-            .then((res) => {
-
+            .then((results) => {
+                res.send(JSON.stringify(results));
             })
             .catch((err) => console.error(err));
     },
@@ -39,15 +39,15 @@ module.exports = {
             offset = Number(req.query.offset);
 
         model.selectUserByID(req.params.groupID, limit, offset)
-            .then((res) => {
-
+            .then((results) => {
+                res.send(JSON.stringify(results));
             })
             .catch((err) => console.error(err));
     },
 
     getParent: (req, res) => {
         model.selectParentByID(req.params.groupID)
-            .then((res) => {
+            .then((results) => {
 
             })
             .catch((err) => console.error(err));
@@ -64,7 +64,7 @@ module.exports = {
             offset = Number(req.query.offset);
 
         model.selectTasksByID(req.params.groupID, limit, offset)
-            .then((res) => {
+            .then((results) => {
 
             })
             .catch((err) => console.error(err));
@@ -79,7 +79,7 @@ module.exports = {
         });
 
         model.insert(groups)
-            .then((res) => {
+            .then((results) => {
 
             })
             .catch((err) => console.error(err));
@@ -96,7 +96,7 @@ module.exports = {
         });
 
         model.update(groups)
-            .then((res) => {
+            .then((results) => {
 
             })
             .catch((err) => console.error(err));
@@ -104,7 +104,7 @@ module.exports = {
 
     putByID: (req, res) => {
         model.updateByID(req.params.groupID, req.body.group)
-            .then((res) => {
+            .then((results) => {
 
             })
             .catch((err) => console.error(err));
@@ -114,7 +114,7 @@ module.exports = {
     // DELETE
     delete: (req, res) => {
         model.deleteByID(req.params.groupID)
-            .then((res) => {
+            .then((results) => {
 
             })
             .catch((err) => console.error(err));

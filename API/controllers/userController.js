@@ -14,16 +14,24 @@ module.exports = {
             offset = Number(req.query.offset);
 
         model.selectAll(limit, offset)
-            .then((res) => {
-
+            .then((results) => {
+                res.send(JSON.stringify(results));
             })
             .catch((err) => console.error(err));
     },
 
     getID: (req, res) => {
         model.selectID(req.params.userID)
-            .then((res) => {
+            .then((results) => {
+                res.send(JSON.stringify(results));
+            })
+            .catch((err) => console.error(err));
+    },
 
+    getLogin: (req, res) => {
+        model.selectID(req.user.userID)
+            .then((results) => {
+                res.send(JSON.stringify(results));
             })
             .catch((err) => console.error(err));
     },
@@ -38,9 +46,9 @@ module.exports = {
         if (typeof (req.query.offset) == 'string' && Number(req.query.offset) >= 0)
             offset = Number(req.query.offset);
 
-        model.selectGroupByID(req.params.userID, limit, offset)
-            .then((res) => {
-
+        model.selectGroupByID(req.user.userID, limit, offset)
+            .then((results) => {
+                res.send(JSON.stringify(results));
             })
             .catch((err) => console.error(err));
     },
@@ -55,74 +63,53 @@ module.exports = {
         if (typeof (req.query.offset) == 'string' && Number(req.query.offset) >= 0)
             offset = Number(req.query.offset);
 
-        model.selectTaskByID(req.params.userID, limit, offset)
-            .then((res) => {
-
+        model.selectTaskByID(req.user.userID, limit, offset)
+            .then((results) => {
+                res.send(JSON.stringify(results));
             })
             .catch((err) => console.error(err));
     },
-
 
     // POST
-    post: (req, res) => {
-        let users = [];
-        req.body.users.forEach(user => {
-            users.push(user);
-        });
-
-        model.insert(users)
-            .then((res) => {
-
-            })
-            .catch((err) => console.error(err));
-    },
-
-
-    //PUT
-    put: (req, res) => {
-        let users = [];
-        req.body.users.forEach(user => {
-            if (typeof user.id !== 'undefined') {
-                users.push(user);
-            }
-        });
-
-        model.update(users)
-            .then((res) => {
-
-            })
-            .catch((err) => console.error(err));
-    },
-
-    putByID: (req, res) => {
-        model.updateByID(req.params.userID, req.body.user)
-            .then((res) => {
-
-            })
-            .catch((err) => console.error(err));
-    },
-
-    putGroupByID: (req, res) => {
+    postGroup: (req, res) => {
         let groups = [];
         req.body.groups.forEach(group => {
-            if (typeof group.id !== 'undefined') {
+            if (typeof group.groupID !== 'undefined') {
                 groups.push(group);
             }
         })
 
-        model.updateGroupByID(req.params.userID, groups)
-            .then((res) => {
-
+        model.updateGroupByID(req.user.userID, groups)
+            .then((results) => {
+                res.send(JSON.stringify(results));
             })
             .catch((err) => console.error(err));
     },
 
+    put: (req, res) => {
+        model.updateByID(req.user.userID, req.body.user)
+            .then((results) => {
+                res.send(JSON.stringify(results));
+            })
+            .catch((err) => {
+                res.sendStatus(403)
+                console.error(err)
+            });
+    },
 
     // DELETE
-    delete: (req, res) => {
-        model.deleteByID(req.params.userID)
-            .then((res) => {
+    deleteGroup: (req, res) => {
+        model.deleteGroupsByID(req.user.userID, req.body.groups)
+            .then((results) => {
+                res.send(JSON.stringify(results));
+            })
+            .catch((err) => console.error(err));
+    },
 
+    delete: (req, res) => {
+        model.deleteByID(req.user.userID)
+            .then((results) => {
+                res.send(JSON.stringify(results));
             })
             .catch((err) => console.error(err));
     }

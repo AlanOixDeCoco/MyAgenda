@@ -4,8 +4,8 @@ module.exports = class ModelGroup {
 
     static selectAll(limit, offset) {
         return new Promise((resolve, reject) => {
-            let sql = "";
-            let value = [];
+            let sql = "SELECT groupID, name, parentID, agendaID FROM Groups LIMIT ? OFFSET ?";
+            let value = [limit, offset];
             DataBase.con.query(sql, value, (err, res) => {
                 if (err) reject(err);
                 resolve(res);
@@ -15,8 +15,8 @@ module.exports = class ModelGroup {
 
     static selectID(id) {
         return new Promise((resolve, reject) => {
-            let sql = "";
-            let value = [];
+            let sql = "SELECT name, parentID, agendaID FROM Groups WHERE groupID = ?";
+            let value = [id];
             DataBase.con.query(sql, value, (err, res) => {
                 if (err) reject(err);
                 resolve(res);
@@ -26,8 +26,8 @@ module.exports = class ModelGroup {
 
     static selectUserByID(id, limit, offset) {
         return new Promise((resolve, reject) => {
-            let sql = "";
-            let value = [];
+            let sql = "SELECT Users.userID, Users.username, Users.email, Users.link_img FROM Users INNER JOIN GroupsUsers ON Users.userID = GroupsUsers.userID INNER JOIN Groups ON GroupsUsers.groupID = Groups.groupID WHERE Groups.groupID = ? LIMIT ? OFFSET ?";
+            let value = [id, limit, offset];
             DataBase.con.query(sql, value, (err, res) => {
                 if (err) reject(err);
                 resolve(res);

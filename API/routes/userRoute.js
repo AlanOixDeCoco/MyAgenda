@@ -6,6 +6,7 @@ const controller = require("../controllers/userController");
 router.get('/', controller.get);
 router.get('/:userID', controller.getID);
 router.get('/:userID/groups', controller.getGroup);
+router.get('/:userID/tasks', controller.getTask);
 
 // POST
 router.post('/', controller.post);

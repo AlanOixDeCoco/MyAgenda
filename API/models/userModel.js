@@ -35,6 +35,17 @@ module.exports = class ModelUser {
         })
     }
 
+    static selectTaskByID(id, limit, offset) {
+        return new Promise((resolve, reject) => {
+            let sql = "";
+            let value = [];
+            DataBase.con.query(sql, value, (err, res) => {
+                if (err) reject(err);
+                resolve(res);
+            })
+        })
+    }
+
     static insert(users) {
         return new Promise((resolve, reject) => {
             let sql = "";

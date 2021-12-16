@@ -1,6 +1,3 @@
-// API
-const API_URL = "http://51.15.83.20:3000";
-
 // Noms états
 const MAIN_STATE = 0;
 const AGENDAS_STATE = 1;
@@ -19,6 +16,7 @@ function Nav(){
     let nav_header = new NavHeader(ICON_AGENDAS_LIST);
     let left_pannel = new LeftPannel();
     nav_header.update(nav_state);
+    left_pannel.update();
     left_pannel.update_state(nav_state);
 
     this.press_left_nav = function(){
@@ -45,7 +43,7 @@ function NavHeader(nav_icon){
         switch(nav_state){
             case MAIN_STATE:
                 this.nav_icon = ICON_AGENDAS_LIST;
-                this.nav_text = "// requête nom agenda";
+                this.nav_text = getCurrentAgendaName;
                 break;
             case AGENDAS_STATE:
                 this.nav_icon = ICON_CLOSE;
@@ -60,6 +58,33 @@ function NavHeader(nav_icon){
         }
         $("#navIcon").attr("src", this.nav_icon);
         $("#navText").text(this.nav_text);
+    }
+}
+
+function requestAgendaName(id){
+    console.log("ID : " + id);
+    $.ajax({
+        type: "GET",
+        url: API_URL + "/agendas/" + id,
+        dataType: "json",
+        headers: {
+            "Authorization": "Bearer " + localStorage['myAgendasToken']
+        },
+        success: function(result, status, xhr){
+            console.log(result)
+        },
+        error: function(response){
+            console.log("Error: " + response);
+        }, 
+    });
+}
+
+function getCurrentAgendaName(){
+    if(localStorage['currentAgendaID']){
+        return requestAgendaName(localStorage['currentAgendaID']);
+    }
+    else{
+        return "noAgendaID";
     }
 }
 
@@ -84,4 +109,6 @@ $(document).ready(function(){
             console.log("Error: " + response);
         }, 
     });
-})
+    console.log(getMyGroups());
+});
+

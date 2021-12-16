@@ -1,11 +1,33 @@
+// Fonction génération block agenda depuis nom agenda et liste catégories
+function generateAgendaBlock(name, categories){
+    var agendaBlock = "<div class='agendaBlock'>\n"
+                    + "\t<div class='agendaTitle'>\n"
+                    + "\t\t<div class='clickable agendaName'>\n"
+                    + "\t\t\t<h1>" + name + "</h1>\n"
+                    + "\t\t</div>\n"
+                    + "\t\t<div class='agendaSettings'>\n"
+                    + "\t\t\t<img class='clickable' src='icons/nav/edit.png'>\n"
+                    + "\t\t\t<img class='visibility' src='icons/nav/visible.png'>\n"
+                    + "\t\t</div>\n"
+                    + "\t</div>\n"
+                    + "\t<div class='categoriesList'>\n";
+    categories.forEach(function(category){
+        agendaBlock += "\t\t<div class='sliderCategory'>\n"
+                    + "\t\t\t<p class='sliderCategoryName'>" + category + "</p>\n"
+                    + "\t\t</div>\n"
+    });
+    agendaBlock += "\t</div>\n"
+                + "<hr class='separationLine'>\n";
+    return agendaBlock;
+}
+                        
+
 // Classe panneau de contenu gauche
 function LeftPannel(){
-    let agendas = [[0, [0, 1]], [1, [0, 1, 2]], [2, [0]]]; // Il faudra ici récupérer les agendas et changer le code en conséquence
-
     this.update = function(){
-        agendas.forEach(element => {
-            element
-        });
+        $("#agendasList").html(generateAgendaBlock("test", ["test_", "test__", "test___"]));
+        $("#agendasList").append(generateAgendaBlock("test", ["test_", "test__", "test___"]));
+        $("#agendasList").append(`<center><img id="addAgenda" class="clickable" src="icons/nav/add.png"></center>`);
     }
 
     this.update_state = function(nav_state) {

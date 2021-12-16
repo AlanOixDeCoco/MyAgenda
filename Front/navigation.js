@@ -1,3 +1,6 @@
+// API
+const API_URL = "http://51.15.83.20:3000";
+
 // Noms états
 const MAIN_STATE = 0;
 const AGENDAS_STATE = 1;
@@ -64,3 +67,21 @@ let nav_handler = new Nav();
 
 // Evenements
 $("#navIcon").click(nav_handler.press_left_nav);
+
+$(document).ready(function(){
+    console.log("Token : " + localStorage['myAgendasToken']);
+    $.ajax({
+        type: "GET",
+        url: API_URL + "/users/me",
+        dataType: "json",
+        headers: {
+            "Authorization": "Bearer " + localStorage['myAgendasToken']
+        },
+        success: function(result, status, xhr){
+            console.log(result[0].username)
+        },
+        error: function(response){
+            console.log("Error: " + response);
+        }, 
+    });
+})

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>MyAgendas</title>
+    <link rel="stylesheet" href="navigation.css">
+    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="left_pannel.css">
+    <link rel="stylesheet" href="popup.css">
+    <script src="jquery-3.6.0.min.js"></script>
+  </head>
+  <body>
+    <div id="navHeader">
+      <img src="icons/nav/agendas.png" id="navIcon" class="clickable"/>
+      <div>
+        <img src="icons/drawings/book.png" id="agendaIcon"/>
+        <p id="navText"></p>
+      </div>
+      <img src="pp.png" id="navPP" class="clickable"/>
+    </div>
+    <div id="agendaContent">
+    </div>
+    <div id="leftPannel" class="hideLeft">
+      <div id="searchBar">
+        <input type="text" placeholder="Rechercher" value="" id="searchInput" onkeydown="search(this, event.key)"/>
+      </div>
+      <hr class="separationLine">
+      <div id="agendasList">
+      </div>
+    </div>
+    <div id="popup" class="hidePopup">
+    </div>
+    <div id="scripts">
+      <script src="commonFunc.js"></script>
+      <script src="categoryPopup.js"></script>
+      <script src="addAgendaPopup.js"></script>
+      <script src="addTaskPopup.js"></script>
+      <script src="addCategoryPopup.js"></script>
+      <script src="popupHandler.js"></script>
+      <script src="mainPannel.js"></script>
+      <script src="leftPannel.js"></script>
+      <script src="navigation.js"></script>
+    </div>
+  </body>
+</html>

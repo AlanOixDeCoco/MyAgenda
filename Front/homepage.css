@@ -1,0 +1,76 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+*{
+    margin: 0px;
+    padding: 0px;
+    font-family: 'Rubik', sans-serif;
+}
+
+html{
+    padding: 0;
+    margin: 0;
+    height: 100%;
+}
+
+body{
+    padding: 0;
+    margin: 0;
+    height: 100%;
+    color: #333333;
+    font-weight: 500;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+h1{
+    font-size: 8vw;
+    padding: 0;
+    margin: 0;
+}
+
+form{
+    width: 100%;
+    margin-top: 3vw;
+    padding: 0vw;
+    display: flex;
+    flex-direction: column;
+}
+
+input{
+    font-size: 3.5vw;
+    width: 100%;
+    height: 6vw;
+    padding-left: 1vw;
+    margin: 2vw;
+}
+
+button{
+    margin-top: 2vw;
+    width: 100%;
+    font-size: 5vw;
+    font-weight: 500;
+}
+
+/* IDs */
+#loginBox{
+    background: #DDDDDD;
+    min-width: 60vw;
+    padding: 6vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 6vw;
+}
+
+#registerBox{
+    background: #DDDDDD;
+    min-width: 60vw;
+    padding: 6vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 6vw;
+}

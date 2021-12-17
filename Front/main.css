@@ -1,0 +1,105 @@
+/* IDs */
+#agendaContent{
+    display: flex;
+    flex-direction: column;
+    padding: 4vw 4vw 50vw 4vw;
+    z-index: 0;
+}
+
+/* CLASSES */
+.categoryBlock{
+    /* Gradient */
+    background: rgb(114,203,242);
+    background: -moz-linear-gradient(135deg, rgba(114,203,242,1) 0%, rgba(242,201,240,1) 75%);
+    background: -webkit-linear-gradient(135deg, rgba(114,203,242,1) 0%, rgba(242,201,240,1) 75%);
+    background: linear-gradient(135deg, rgba(114,203,242,1) 0%, rgba(242,201,240,1) 75%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#72cbf2",endColorstr="#f2c9f0",GradientType=1);
+    /*          */
+    border-radius: 6vw;
+    box-shadow: 0 .4vw .8vw #00000086;
+    margin-bottom: 5vw;
+    padding: 3vw;
+    display: flex;
+    flex-direction: column;
+}
+
+.categoryHeader{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    height: 8vw;
+}
+
+.categoryTitle{
+    display: flex;
+    align-items: center;
+    height: 9vw;
+    padding: 0vw 2vw 0vw 2vw;
+    background: #FFFFFF;
+    border-radius: 3vw;
+    box-shadow: inset 0 .3vw .6vw #00000086;
+}
+
+.categoryTitle p{
+    font-weight: 800;
+    font-size: 9vw;
+    color: #333333;
+}
+
+.categoryTitle img{
+    height: 7vw;
+    margin-right: 1vw;
+}
+
+.notifImage{
+    border-radius: 100%;
+    height: 9vw;
+    margin: -.5vw -.5vw 0vw 0vw;
+    box-shadow: 0 .3vw .6vw #00000086;
+}
+
+.categoryGroups{
+    font-size: 6vw;
+    font-weight: 300;
+    color: #333333;
+    margin: 2vw 0vw 2vw .5vw;
+}
+
+.categoryInfos{
+    display: flex;
+    flex-direction: column;
+    background: #FFFFFF66;
+    border-radius: 4vw;
+    box-shadow: inset 0 .3vw .6vw #00000086;
+    padding: 2.5vw;
+}
+
+.infoLine{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: 5.5vw;
+    color: #333333;
+}
+.infoLine img{
+    height: 100%;
+}
+.infoLine p{
+    margin-left: 2vw;
+    font-size: 6vw;
+}
+
+.taskState{
+    margin-bottom: 2.5vw;
+    font-weight: 800;
+}
+
+.nextDeadline{
+    font-weight: 300;
+}
+
+.addImage{
+    width: 8vw;
+    margin-bottom: 3vw;
+}

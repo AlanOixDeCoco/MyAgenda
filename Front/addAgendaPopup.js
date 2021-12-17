@@ -18,5 +18,46 @@ function AddAgendaPopup(){
 }
 
 function submitAddAgenda(agenda_name){
-    console.log(agenda_name);
+    var settings = {
+        "url": API_URL + "/agendas",
+        "method": "POST",
+        "timeout": 0,
+        "headers": {
+          "Authorization": "Bearer " + localStorage['myAgendasToken'],
+          "Content-Type": "application/json"
+        },
+        "data": JSON.stringify({
+          "agendas": [
+            {
+              "name": agenda_name
+            }
+          ]
+        }),
+      };
+      $.ajax(settings).done(function (response) {
+        console.log(response);
+        var settings = {
+            "url": API_URL + "/agendas/" + JSON.parse(response).insertId + "/groups",
+            "method": "PUT",
+            "timeout": 0,
+            "headers": {
+              "Authorization": "Bearer " + localStorage['myAgendasToken'],
+              "Content-Type": "application/json"
+            },
+            "data": JSON.stringify({
+              "groups": [
+                {
+                  "groupID": 5
+                }
+              ]
+            }),
+          };
+          $.ajax(settings).done(function (response) {
+            console.log(response);
+          });
+      }).fail(function (response) {
+        console.log("Javascript à probablement craqué : response");
+      });
+      
+      location.reload();
 }

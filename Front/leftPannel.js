@@ -2,7 +2,7 @@
 function generateAgendaBlock(agendaID, name, categories){
     var agendaBlock = "<div class='agendaBlock'>\n"
                     + "\t<div class='agendaTitle'>\n"
-                    + "\t\t<div id='" + agendaID + "' class='clickable agendaName' onclick='selectAgenda()'>\n"
+                    + "\t\t<div id='" + agendaID + "' class='clickable agendaName' onclick='selectAgenda(this.id)'>\n"
                     + "\t\t\t<h1>" + name + "</h1>\n"
                     + "\t\t</div>\n"
                     + "\t\t<div class='agendaSettings'>\n"
@@ -11,11 +11,6 @@ function generateAgendaBlock(agendaID, name, categories){
                     + "\t\t</div>\n"
                     + "\t</div>\n"
                     + "\t<div class='categoriesList'>\n";
-    categories.forEach(function(category){
-        agendaBlock += "\t\t<div class='sliderCategory'>\n"
-                    + "\t\t\t<p class='sliderCategoryName'>" + category + "</p>\n"
-                    + "\t\t</div>\n"
-    });
     agendaBlock += "\t</div>\n"
                 + "<hr class='separationLine'>\n";
     return agendaBlock;
@@ -24,15 +19,23 @@ function generateAgendaBlock(agendaID, name, categories){
 // Classe panneau de contenu gauche
 function LeftPannel(){
     this.update = function(){
-        var agendas = ["", ""]; // recup agendas (users/me/agendas w/ token)
-        $("#agendasList").html("");
-        agendas.forEach(agenda => {
-            id = "x";
-            agenda_name = "xx";
-            categories = ["xxxx", "xxxxxx"];
-            $("#agendasList").append(generateAgendaBlock(id, agenda_name, categories));
+        var settings = {
+            "url": API_URL + "/users/me/agendas",
+            "method": "GET",
+            "timeout": 0,
+            "headers": {
+                "Authorization": "Bearer " + localStorage['myAgendasToken']
+            }
+        };
+          
+        $.ajax(settings).done(function (agendas) {
+            $("#agendasList").html("");
+            console.log(JSON.parse(agendas));
+            JSON.parse(agendas).forEach(agenda => {
+                $("#agendasList").append(generateAgendaBlock(agenda.agendaID, agenda.name, null));
+            });
+            $("#agendasList").append(`<center><img class="addImage clickable" src="icons/nav/add_round.png" onclick="addAgenda()"></center>`);
         });
-        $("#agendasList").append(`<center><img class="addImage clickable" src="icons/nav/add_round.png" onclick="addAgenda()"></center>`);
     }
 
     this.update_state = function(nav_state) {

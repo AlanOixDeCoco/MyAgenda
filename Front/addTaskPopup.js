@@ -10,10 +10,9 @@ function generateAddTaskContent(subject_id, subject_name, groups){
                             <div class="taskGroupChoice">
                                 <p>Groupe</p>
                                 <div class="optionsWrapper">
-                                    <select name="group" id="group">`;
+                                    <select name="group" id="group" scrolling="auto">`;
     
     groups.forEach(group => {
-            console.log(group.name);
             addTaskContent += "\t\t<option class='groupOption' value='" + group.groupID + "'>" + group.name + "</option>";
     });
 
@@ -61,7 +60,8 @@ function submitAddTask(subject_id, taskname, deadline, description, group){
               "deadline": deadline,
               "creation": date,
               "agendaID": localStorage['currentAgendaID'],
-              "groupID": 10
+              "groupID": 10,
+              "subjectID": subject_id
             }
           ]
         }),

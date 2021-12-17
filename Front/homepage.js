@@ -87,23 +87,3 @@ function loginRequest(email, password){
         window.location.href = "mainpage.html";
     });
 }
-
-
-$(document).ready(function(){
-    console.log("Current token : " + localStorage['myAgendasToken']);
-    $.ajax({
-        type: "GET",
-        url: API_URL + "/users/me",
-        dataType: "json",
-        headers: {
-            "Authorization": "Bearer " + localStorage['myAgendasToken']
-        },
-        success: function(result, status, xhr){
-            console.log("User : " + result[0].username);
-            window.location.href = "mainpage.html";
-        },
-        error: function(response){
-            console.log("Error: " + response);
-        }, 
-    });
-})

@@ -1,5 +1,5 @@
-function generateCategoryContent(id, name, groups, tasks){
-    var categoryContent =  `<div class='categoryHeader'>
+function generateCategoryContent(id, name, groups){
+    let categoryContent =  `<div class='categoryHeader'>
                                 <div class='categoryTitle'>
                                     <img src='icons/drawings/idea.png'>
                                     <p class='categoryName'>${name}</p>
@@ -7,15 +7,23 @@ function generateCategoryContent(id, name, groups, tasks){
                                 <img class='closePopup clickable' src='icons/nav/close.png' onclick='closePopupClicked()'></img>
                             </div>
                             <p class='categoryGroups'>${groups}</p>`;
-    tasks.forEach(task => {
-        categoryContent += generateTaskBlock(task);
+    var settings = {
+        "url": API_URL + "/subjects/" + id + "/tasks",
+        "method": "GET",
+        "timeout": 0
+    };
+    $.ajax(settings).done(function (tasks) {
+        console.log(JSON.parse(tasks));
+        JSON.parse(tasks).forEach(task => {
+            categoryContent += generateTaskBlock(task.name, null, task.deadline.slice(0, -14), null, null, task.creation.slice(0, -14));
+        });
+        categoryContent += `<center><img id="${id}" class="addImage clickable" src="icons/nav/add_round.png" onclick="addTask(this.id)"></center>`;
+        $("#popup").html(categoryContent);
     });
-    categoryContent += `<center><img id="${id}" class="addImage clickable" src="icons/nav/add_round.png" onclick="addTask(this.id)"></center>`;
-   return categoryContent;
 }
 
 function generateTaskBlock(task_name, views, deadline, description, link, edit_date){
-    var taskblock =`<div class='categoryTask'>
+    let taskblock =`<div class='categoryTask'>
                         <div class='infoLine titleLine'>
                             <p>${task_name}</p>
                         </div>
@@ -42,23 +50,7 @@ function generateTaskBlock(task_name, views, deadline, description, link, edit_d
 }
 
 function CategoryPopup(c_id){
-    let popupDiv = $("#popup");
     this.update = function(){
-        $.ajax({
-            type: "GET",
-            url: API_URL + "/subjects/" + c_id + "/tasks",
-            dataType: "json",
-            headers: {
-                "Authorization": "Bearer " + localStorage['myAgendasToken']
-            },
-            success: function(tasks, status, xhr){
-                console.log(tasks);
-                popupDiv.html(generateCategoryContent(id, $("#category" + c_id).text(), 'JPP DU WEB', tasks));
-            },
-            error: function(response){
-                console.log("Javascript à probablement carqué : response");
-            },
-        });
-        
+        generateCategoryContent(c_id, $("#category" + c_id).text(), 'JPP DU WEB');
     }
 }

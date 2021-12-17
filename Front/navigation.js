@@ -101,7 +101,8 @@ function addAgenda(){
 }
 
 function editAgenda(agenda_id){
-    console.log(agenda_id);
+    popupHandler.setPopup(new editAgendaPopup(agenda_id));
+    popupHandler.showPopup();
 }
 
 function categoryClicked(subject_id){

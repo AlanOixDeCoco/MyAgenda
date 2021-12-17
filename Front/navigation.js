@@ -93,6 +93,10 @@ let agendaHandler = new AgendaHandler();
 // Evenements
 $("#navIcon").click(nav_handler.press_left_nav);
 
+function goToSettings(){
+    window.location.href = "userSettings.html";
+}
+
 function selectAgenda(agenda_id){
     localStorage['currentAgendaID'] = agenda_id;
     location.reload();

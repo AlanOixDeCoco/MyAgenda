@@ -43,8 +43,22 @@ function generateTaskBlock(task_name, views, deadline, description, link, edit_d
 
 function CategoryPopup(c_id){
     let popupDiv = $("#popup");
-    let id = c_id;
     this.update = function(){
-        popupDiv.html(generateCategoryContent(id, id, 'B2, A2, JPP DU WEB', ["Tache", "Tache"]));
+        $.ajax({
+            type: "GET",
+            url: API_URL + "/subjects/" + c_id + "/tasks",
+            dataType: "json",
+            headers: {
+                "Authorization": "Bearer " + localStorage['myAgendasToken']
+            },
+            success: function(tasks, status, xhr){
+                console.log(tasks);
+                popupDiv.html(generateCategoryContent(id, $("#category" + c_id).text(), 'JPP DU WEB', tasks));
+            },
+            error: function(response){
+                console.log("Javascript à probablement carqué : response");
+            },
+        });
+        
     }
 }

@@ -30,6 +30,33 @@ function AddTaskPopup(c_subject_id){
     }
 }
 
-function submitAddTask(subject_id, taskname, deadline, password, group){
-    console.log(subject_id + "/" + taskname + "/" + deadline + "/" + password + "/" + group);
+function submitAddTask(subject_id, taskname, deadline, description, group){
+    var today = new Date();
+    var date = today.getFullYear() + '-' + (today.getMonth()+1) + '-' + today.getDate();
+    console.log(subject_id + "/" + taskname + "/" + deadline + "/" + date + "/" + description + "/" + group);
+    $.ajax({
+        type: "POST",
+        url: API_URL + "/tasks",
+        dataType: "json",
+        headers: {
+            "Authorization": "Bearer " + localStorage['myAgendasToken']
+        },
+        data: JSON.stringify({
+            "tasks": [
+                {
+                    "name": taskname,
+                    "deadline": deadline,
+                    "creation": date,
+                    "agendaID": localStorage['currentAgendaID'],
+                    "groupID": 1
+                }
+            ]
+        }),
+        success: function(result, status, xhr){
+            console.log(result);
+        },
+        error: function(response){
+            console.log("Javascript à probablement carqué : response");
+        },
+    });
 }

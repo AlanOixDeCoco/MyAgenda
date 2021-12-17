@@ -34,60 +34,58 @@ function Nav(){
 }
 
 // Classe header de navigation (gestion visuelle du header)
-function NavHeader(nav_icon){
-    this.nav_icon = nav_icon;
-    this.nav_text = "";
+function NavHeader(c_nav_icon){
+    let nav_icon = c_nav_icon;
+    let nav_text = "";
+    let agendaName = "";
+    requestAgendaName(setAgendaName);
+    
+    function setAgendaName(agenda_name){
+        agendaName = agenda_name;
+    }
 
     this.update = function(nav_state) {
         $("#agendaIcon").show();
         switch(nav_state){
             case MAIN_STATE:
-                this.nav_icon = ICON_AGENDAS_LIST;
-                this.nav_text = getCurrentAgendaName;
+                nav_icon = ICON_AGENDAS_LIST;
+                nav_text = agendaName;
                 break;
             case AGENDAS_STATE:
-                this.nav_icon = ICON_CLOSE;
-                this.nav_text = "MyAgendas";
+                nav_icon = ICON_CLOSE;
+                nav_text = "MyAgendas";
                 $("#agendaIcon").hide();
                 break;
             default:
-                this.nav_icon = ICON_DEBUG_ERROR;
-                this.nav_text = "ERROR";
+                nav_icon = ICON_DEBUG_ERROR;
+                nav_text = "ERROR";
                 $("#agendaIcon").hide();
                 break;
         }
-        $("#navIcon").attr("src", this.nav_icon);
-        $("#navText").text(this.nav_text);
+        $("#navIcon").attr("src", nav_icon);
+        $("#navText").text(nav_text);
     }
 }
 
-function requestAgendaName(id){
-    console.log("ID : " + id);
+function requestAgendaName(func){
     $.ajax({
         type: "GET",
-        url: API_URL + "/agendas/" + id,
+        url: API_URL + "/agendas/" + localStorage['currentAgendaID'],
         dataType: "json",
+        async: false,
         headers: {
             "Authorization": "Bearer " + localStorage['myAgendasToken']
         },
         success: function(result, status, xhr){
-            console.log(result)
+            func(result[0].name);
         },
         error: function(response){
-            console.log("Error: " + response);
-        }, 
+            return "noAgenda";
+        },
     });
 }
 
-function getCurrentAgendaName(){
-    if(localStorage['currentAgendaID']){
-        return requestAgendaName(localStorage['currentAgendaID']);
-    }
-    else{
-        return "noAgendaID";
-    }
-}
-
+localStorage['currentAgendaID'] = 4;
 let nav_handler = new Nav();
 let popupHandler = new PopupHandler();
 let agendaHandler = new AgendaHandler();
@@ -123,7 +121,7 @@ function addCategory(agenda_id){
 }
 
 $(document).ready(function(){
-    console.log("User token : " + localStorage['currentAgendaID']);
+    console.log("User token : " + localStorage['myAgendasToken']);
     getMyGroups();
-    agendaHandler.update();
+    agendaHandler.update(localStorage['currentAgendaID']);
 });

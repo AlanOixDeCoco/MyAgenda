@@ -66,26 +66,6 @@ function registerRequest(username, email, password){
       });
 };
 
-/*
-console.log(username + " / " + email + " / " + password);
-    var toSend = {};
-    toSend.user = {};
-    toSend.user.username = username;
-    toSend.user.email = email;
-    toSend.user.password= password;
-    $.ajax({
-        type: "POST",
-        url: API_URL + "/auth/register",
-        data: toSend,
-        success: function(result, status, xhr){
-            console.log("successfully created your account : " + result);
-        },
-        error: function(response, error, errorMessage){
-            console.log("Error while requesting register : " + errorMessage);
-        }, 
-    });
-*/
-
 function loginRequest(email, password){
     var settings = {
         "url": API_URL + "/auth/login",
@@ -108,7 +88,7 @@ function loginRequest(email, password){
     });
 }
 
-/*
+
 $(document).ready(function(){
     console.log("Current token : " + localStorage['myAgendasToken']);
     $.ajax({
@@ -119,11 +99,11 @@ $(document).ready(function(){
             "Authorization": "Bearer " + localStorage['myAgendasToken']
         },
         success: function(result, status, xhr){
-            console.log("User : " + result[0].username)
+            console.log("User : " + result[0].username);
+            window.location.href = "mainpage.html";
         },
         error: function(response){
             console.log("Error: " + response);
         }, 
     });
 })
-*/

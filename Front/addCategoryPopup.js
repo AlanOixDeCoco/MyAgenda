@@ -20,4 +20,25 @@ function AddCategoryPopup(c_agenda_id){
 
 function submitAddCategory(agenda_id, categoryName){
     console.log(agenda_id + "/" + categoryName);
+    var settings = {
+        "url": API_URL + "/subjects",
+        "method": "POST",
+        "timeout": 0,
+        "headers": {
+          "Authorization": "Bearer " + localStorage['myAgendasToken'],
+          "Content-Type": "application/json"
+        },
+        "data": JSON.stringify({
+          "subjects": [
+            {
+              "name": categoryName,
+              "agendaID": agenda_id
+            }
+          ]
+        }),
+      };
+      
+      $.ajax(settings).done(function (response) {
+        console.log(response);
+      });
 }

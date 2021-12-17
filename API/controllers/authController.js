@@ -1,4 +1,4 @@
-require('dotenv').config();
+const config = require("../database/config.json")
 const model = require("../models/authModel");
 const jwt = require('jsonwebtoken');
 const Error = require('../Errors/errors');
@@ -19,17 +19,16 @@ module.exports = {
     login: (req, res) => {
         model.login(req.body.user)
             .then((results) => {
-                if (typeof results[0].userID !== 'undefined') {
+                if (typeof results[0] !== 'undefined') {
                     let user = {
                         userID: results[0].userID,
                         username: results[0].username,
                         email: results[0].email
                     }
-                    let accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET);
+                    let accessToken = jwt.sign(user, config.token.access_token_secret);
                     res.send({ accessToken: accessToken });
                 } else {
-                    console.error(err);
-                    Error.NotFound(res, "User");
+                    Error.Unauthorized(res);
                 }
             })
             .catch((err) => {

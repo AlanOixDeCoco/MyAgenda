@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');
 
 const DataBase = require("./database/database");
 
@@ -15,6 +16,7 @@ const port = 3000;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cors());
 
 DataBase.connect();
 

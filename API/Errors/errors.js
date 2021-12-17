@@ -14,12 +14,12 @@ module.exports = {
         res.status(400).end();
     },
 
-    Unauthorized: () => {
+    Unauthorized: (res) => {
         res.statusMessage = "Non-autorisé";
         res.status(403).end();
     },
 
-    Unauthenticated: () => {
+    Unauthenticated: (res) => {
         res.statusMessage = "Non-authentifié";
         res.status(401).end();
     }

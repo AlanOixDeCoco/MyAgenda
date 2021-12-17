@@ -17,6 +17,7 @@ module.exports = class ModelAuth {
         return new Promise((resolve, reject) => {
             let sql = "SELECT userID, username, email FROM Users WHERE email = ? AND password = ?";
             let value = [user.email, user.password];
+            console.log(DataBase.con.query(sql, value));
             DataBase.con.query(sql, value, (err, res) => {
                 if (err) reject(err);
                 resolve(res)

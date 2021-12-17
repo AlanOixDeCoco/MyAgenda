@@ -3,7 +3,7 @@
 Collaborative agenda in development as part of a WEB course project.
 Development of a REST API and implementation in a dynamic site.
 
-##Authors
+## Authors
 
 Colin OLIVIER
 Alan SALAÜN

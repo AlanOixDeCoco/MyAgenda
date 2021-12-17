@@ -38,15 +38,16 @@ module.exports = class ModelTask {
     static insert(tasks) {
         // ADD description
         return new Promise((resolve, reject) => {
-            let sql = "INSERT INTO Tasks (name, deadline, creation, agendaID, groupID) VALUES";
+            let sql = "INSERT INTO Tasks (name, deadline, creation, agendaID, groupID, subjectID) VALUES";
             let value = [];
             tasks.forEach(task => {
-                sql += "(?,?,?,?,?), ";
+                sql += "(?,?,?,?,?,?), ";
                 value.push(task.name);
                 value.push(task.deadline);
                 value.push(task.creation);
                 value.push(task.agendaID);
                 value.push(task.groupID);
+                value.push(task.subjectID);
             });
             sql = sql.slice(0, -2) + ";";
             DataBase.con.query(sql, value, (err, res) => {

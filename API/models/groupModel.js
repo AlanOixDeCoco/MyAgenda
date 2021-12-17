@@ -35,21 +35,10 @@ module.exports = class ModelGroup {
         })
     }
 
-    static selectParentByID(id) {
-        return new Promise((resolve, reject) => {
-            let sql = "";
-            let value = [];
-            DataBase.con.query(sql, value, (err, res) => {
-                if (err) reject(err);
-                resolve(res);
-            })
-        })
-    }
-
     static selectTasksByID(id, limit, offset) {
         return new Promise((resolve, reject) => {
-            let sql = "";
-            let value = [];
+            let sql = "SELECT DISTINCT Tasks.* FROM Tasks WHERE Tasks.groupID = ? LIMIT ? OFFSET ?";
+            let value = [id, limit, offset];
             DataBase.con.query(sql, value, (err, res) => {
                 if (err) reject(err);
                 resolve(res);

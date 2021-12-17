@@ -37,8 +37,19 @@ module.exports = class ModelUser {
 
     static selectTaskByID(id, limit, offset) {
         return new Promise((resolve, reject) => {
-            let sql = "";
-            let value = [];
+            let sql = "SELECT DISTINCT Tasks.* FROM Tasks INNER JOIN Groups ON Tasks.agendaID = Groups.agendaID INNER JOIN GroupsUsers ON Groups.groupID = GroupsUsers.groupID WHERE GroupsUsers.userID = ? LIMIT ? OFFSET ?";
+            let value = [id, limit, offset];
+            DataBase.con.query(sql, value, (err, res) => {
+                if (err) reject(err);
+                resolve(res);
+            })
+        })
+    }
+
+    static selectAgendaByID(id, limit, offset) {
+        return new Promise((resolve, reject) => {
+            let sql = "SELECT DISTINCT Agendas.agendaID, Agendas.name FROM Agendas INNER JOIN Groups ON Agendas.agendaID = Groups.agendaID INNER JOIN GroupsUsers ON Groups.groupID = GroupsUsers.groupID WHERE GroupsUsers.userID = ? LIMIT ? OFFSET ?";
+            let value = [id, limit, offset];
             DataBase.con.query(sql, value, (err, res) => {
                 if (err) reject(err);
                 resolve(res);

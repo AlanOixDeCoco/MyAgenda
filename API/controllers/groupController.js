@@ -78,7 +78,7 @@ module.exports = {
 
         model.selectTasksByID(req.params.groupID, limit, offset)
             .then((results) => {
-
+                res.send(JSON.stringify(results));
             })
             .catch((err) => {
                 console.error(err);

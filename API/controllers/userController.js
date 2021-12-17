@@ -49,11 +49,17 @@ module.exports = {
         if (typeof (req.query.offset) == 'string' && Number(req.query.offset) >= 0)
             offset = Number(req.query.offset);
 
+        console.log("selectGroupByID ", "user :" + req.user.userID, "limit :" + limit, "offset :" + offset);
+
         model.selectGroupByID(req.user.userID, limit, offset)
             .then((results) => {
+                console.log("\t Success !");
                 res.send(JSON.stringify(results));
             })
-            .catch((err) => console.error(err));
+            .catch((err) => {
+                console.log("\t Failed !");
+                console.error(err)
+            });
     },
 
     getTask: (req, res) => {
@@ -66,11 +72,40 @@ module.exports = {
         if (typeof (req.query.offset) == 'string' && Number(req.query.offset) >= 0)
             offset = Number(req.query.offset);
 
+        console.log("selectTaskByID ", "user :" + req.user.userID, "limit :" + limit, "offset :" + offset);
+
         model.selectTaskByID(req.user.userID, limit, offset)
             .then((results) => {
+                console.log("\t Success !");
                 res.send(JSON.stringify(results));
             })
-            .catch((err) => console.error(err));
+            .catch((err) => {
+                console.log("\t Failed !");
+                console.error(err)
+            });
+    },
+
+    getAgenda: (req, res) => {
+        let limit = 50;
+        let offset = 0;
+
+        if (typeof (req.query.limit) == 'string' && Number(req.query.limit) >= 0 && Number(req.query.limit) <= 100)
+            limit = Number(req.query.limit);
+
+        if (typeof (req.query.offset) == 'string' && Number(req.query.offset) >= 0)
+            offset = Number(req.query.offset);
+
+        console.log("selectAgendaByID ", "user :" + req.user.userID, "limit :" + limit, "offset :" + offset);
+
+        model.selectAgendaByID(req.user.userID, limit, offset)
+            .then((results) => {
+                console.log("\t Success !");
+                res.send(JSON.stringify(results));
+            })
+            .catch((err) => {
+                console.log("\t Failed !");
+                console.error(err)
+            });
     },
 
     // POST
@@ -82,11 +117,19 @@ module.exports = {
             }
         })
 
+        console.log("updateGroupByID ", "user :" + req.user.userID);
+        console.log("Groups :");
+        console.log(JSON.stringify(groups));
+
         model.updateGroupByID(req.user.userID, groups)
             .then((results) => {
+                console.log("\t Success !");
                 res.send(JSON.stringify(results));
             })
-            .catch((err) => console.error(err));
+            .catch((err) => {
+                console.log("\t Failed !");
+                console.error(err)
+            });
     },
 
     put: (req, res) => {

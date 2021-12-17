@@ -9,6 +9,7 @@ router.get('/me', authToken.authToken, controller.getLogin);
 router.get('/:userID', controller.getID);
 router.get('/me/groups', authToken.authToken, controller.getGroup);
 router.get('/me/tasks', authToken.authToken, controller.getTask);
+router.get('/me/agendas', authToken.authToken, controller.getAgenda);
 
 //POST
 router.post('/me/groups', authToken.authToken, controller.postGroup);

@@ -1,4 +1,5 @@
 const model = require("../models/agendaModel");
+const Error = require("../Errors/errors");
 
 module.exports = {
 
@@ -14,26 +15,35 @@ module.exports = {
             offset = Number(req.query.offset);
 
         model.selectAll(limit, offset)
-            .then((res) => {
-
+            .then((results) => {
+                res.send(JSON.stringify(results));
             })
-            .catch((err) => console.error(err));
+            .catch((err) => {
+                console.error(err);
+                Error.BadSyntax(res);
+            });
     },
 
     getID: (req, res) => {
         model.selectID(req.params.agendaID)
-            .then((res) => {
-
+            .then((results) => {
+                res.send(JSON.stringify(results));
             })
-            .catch((err) => console.error(err));
+            .catch((err) => {
+                console.error(err);
+                Error.NotFound(res, "Agenda");
+            });
     },
 
     getGroup: (req, res) => {
         model.selectGroupByID(req.params.agendaID)
-            .then((res) => {
-
+            .then((results) => {
+                res.send(JSON.stringify(results));
             })
-            .catch((err) => console.error(err));
+            .catch((err) => {
+                console.error(err);
+                Error.NotFound(res, "Agenda");
+            });
     },
 
     getTask: (req, res) => {
@@ -47,18 +57,24 @@ module.exports = {
             offset = Number(req.query.offset);
 
         model.selectTaskByID(req.params.agendaID, limit, offset)
-            .then((res) => {
-
+            .then((results) => {
+                res.send(JSON.stringify(results));
             })
-            .catch((err) => console.error(err));
+            .catch((err) => {
+                console.error(err);
+                Error.BadSyntax(res);
+            });
     },
 
     getSubject: (req, res) => {
         model.selectSubjectByID(req.params.agendaID)
-            .then((res) => {
-
+            .then((results) => {
+                res.send(JSON.stringify(results));
             })
-            .catch((err) => console.error(err));
+            .catch((err) => {
+                console.error(err);
+                Error.BadSyntax(res);
+            });
     },
 
 
@@ -70,10 +86,13 @@ module.exports = {
         });
 
         model.insert(agendas)
-            .then((res) => {
-
+            .then((results) => {
+                res.send(JSON.stringify(results));
             })
-            .catch((err) => console.error(err));
+            .catch((err) => {
+                console.error(err);
+                Error.BadSyntax(res);
+            });
     },
 
 
@@ -81,48 +100,60 @@ module.exports = {
     put: (req, res) => {
         let agendas = [];
         req.body.agendas.forEach(agenda => {
-            if (typeof agenda.id !== 'undefined') {
+            if (typeof agenda.agendaID !== 'undefined') {
                 agendas.push(agenda);
             }
         });
 
         model.update(agendas)
-            .then((res) => {
-
+            .then((results) => {
+                res.send(JSON.stringify(results));
             })
-            .catch((err) => console.error(err));
+            .catch((err) => {
+                console.error(err);
+                Error.BadSyntax(res);
+            });
     },
 
     putByID: (req, res) => {
         model.updateByID(req.params.agendaID, req.body.agenda)
-            .then((res) => {
-
+            .then((results) => {
+                res.send(JSON.stringify(results));
             })
-            .catch((err) => console.error(err));
+            .catch((err) => {
+                console.error(err);
+                Error.BadSyntax(res);
+            });
     },
 
     putGroupByID: (req, res) => {
         let groups = [];
         req.body.groups.forEach(group => {
-            if (typeof group.id !== 'undefined') {
+            if (typeof group.groupID !== 'undefined') {
                 groups.push(group);
             }
         })
 
         model.updateGroupByID(req.params.agendaID, groups)
-            .then((res) => {
-
+            .then((results) => {
+                res.send(JSON.stringify(results));
             })
-            .catch((err) => console.error(err));
+            .catch((err) => {
+                console.error(err);
+                Error.BadSyntax(res);
+            });
     },
 
 
     // DELETE
     delete: (req, res) => {
         model.deleteByID(req.params.agendaID)
-            .then((res) => {
-
+            .then((results) => {
+                res.send(JSON.stringify(results));
             })
-            .catch((err) => console.error(err));
+            .catch((err) => {
+                console.error(err);
+                Error.BadSyntax(res);
+            });
     }
 }

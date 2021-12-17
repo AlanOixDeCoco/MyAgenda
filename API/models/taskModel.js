@@ -4,8 +4,8 @@ module.exports = class ModelTask {
 
     static selectAll(limit, offset) {
         return new Promise((resolve, reject) => {
-            let sql = "";
-            let value = [];
+            let sql = "SELECT taskID, name, description, deadline, creation, agendaID, groupID, subjectID FROM Tasks LIMIT ? OFFSET ?";
+            let value = [limit, offset];
             DataBase.con.query(sql, value, (err, res) => {
                 if (err) reject(err);
                 resolve(res);
@@ -15,8 +15,8 @@ module.exports = class ModelTask {
 
     static selectID(id) {
         return new Promise((resolve, reject) => {
-            let sql = "";
-            let value = [];
+            let sql = "SELECT name, description, deadline, creation, agendaID, groupID, subjectID FROM Tasks WHERE taskID = ?";
+            let value = [id];
             DataBase.con.query(sql, value, (err, res) => {
                 if (err) reject(err);
                 resolve(res);
@@ -26,8 +26,8 @@ module.exports = class ModelTask {
 
     static selectGroupByID(id) {
         return new Promise((resolve, reject) => {
-            let sql = "";
-            let value = [];
+            let sql = "SELECT Groups.groupID, Groups.name, Groups.parentID, Groups.agendaID FROM Groups WHERE Groups.groupID = (SELECT Tasks.groupID FROM Tasks WHERE Tasks.taskID = ? )";
+            let value = [id];
             DataBase.con.query(sql, value, (err, res) => {
                 if (err) reject(err);
                 resolve(res);
@@ -36,9 +36,20 @@ module.exports = class ModelTask {
     }
 
     static insert(tasks) {
+        // ADD description
         return new Promise((resolve, reject) => {
-            let sql = "";
+            let sql = "INSERT INTO Tasks (name, deadline, creation, agendaID, groupID, subjectID) VALUES";
             let value = [];
+            tasks.forEach(task => {
+                sql += "(?,?,?,?,?,?), ";
+                value.push(task.name);
+                value.push(task.deadline);
+                value.push(task.creation);
+                value.push(task.agendaID);
+                value.push(task.groupID);
+                value.push(task.subjectID);
+            });
+            sql = sql.slice(0, -2) + ";";
             DataBase.con.query(sql, value, (err, res) => {
                 if (err) reject(err);
                 resolve(res);
@@ -50,6 +61,47 @@ module.exports = class ModelTask {
         return new Promise((resolve, reject) => {
             let sql = "";
             let value = [];
+            tasks.forEach(task => {
+                sql += "UPDATE Tasks SET ";
+
+                if (typeof task.name !== 'undefined') {
+                    sql += "Tasks.name = ?, ";
+                    value.push(task.name);
+                }
+
+                if (typeof task.description !== 'undefined') {
+                    sql += "Tasks.description = ?, ";
+                    value.push(task.description);
+                }
+
+                if (typeof task.deadline !== 'undefined') {
+                    sql += "Tasks.deadline = ?, ";
+                    value.push(task.deadline);
+                }
+
+                if (typeof task.creation !== 'undefined') {
+                    sql += "Tasks.creation = ?, ";
+                    value.push(task.creation);
+                }
+
+                if (typeof task.agendaID !== 'undefined') {
+                    sql += "Tasks.agendaID = ?, ";
+                    value.push(task.agendaID);
+                }
+
+                if (typeof task.groupID !== 'undefined') {
+                    sql += "Tasks.groupID = ?, ";
+                    value.push(task.groupID);
+                }
+
+                if (typeof task.subjectID !== 'undefined') {
+                    sql += "Tasks.subjectID = ?, ";
+                    value.push(task.subjectID);
+                }
+
+                sql = sql.slice(0, -2) + " WHERE Tasks.taskID = ?; ";
+                value.push(task.taskID);
+            })
             DataBase.con.query(sql, value, (err, res) => {
                 if (err) reject(err);
                 resolve(res);
@@ -59,19 +111,48 @@ module.exports = class ModelTask {
 
     static updateByID(id, task) {
         return new Promise((resolve, reject) => {
-            let sql = "";
+            let sql = "UPDATE Tasks SET ";
             let value = [];
-            DataBase.con.query(sql, value, (err, res) => {
-                if (err) reject(err);
-                resolve(res);
-            })
-        })
-    }
+            if (typeof task !== 'undefined') {
 
-    static updateGroupByID(id, groups) {
-        return new Promise((resolve, reject) => {
-            let sql = "";
-            let value = [];
+                if (typeof task.name !== 'undefined') {
+                    sql += "Tasks.name = ?, ";
+                    value.push(task.name);
+                }
+
+                if (typeof task.description !== 'undefined') {
+                    sql += "Tasks.description = ?, ";
+                    value.push(task.description);
+                }
+
+                if (typeof task.deadline !== 'undefined') {
+                    sql += "Tasks.deadline = ?, ";
+                    value.push(task.deadline);
+                }
+
+                if (typeof task.creation !== 'undefined') {
+                    sql += "Tasks.creation = ?, ";
+                    value.push(task.creation);
+                }
+
+                if (typeof task.agendaID !== 'undefined') {
+                    sql += "Tasks.agendaID = ?, ";
+                    value.push(task.agendaID);
+                }
+
+                if (typeof task.groupID !== 'undefined') {
+                    sql += "Tasks.groupID = ?, ";
+                    value.push(task.groupID);
+                }
+
+                if (typeof task.subjectID !== 'undefined') {
+                    sql += "Tasks.subjectID = ?, ";
+                    value.push(task.subjectID);
+                }
+
+                sql = sql.slice(0, -2) + " WHERE taskID = ?";
+                value.push(id);
+            }
             DataBase.con.query(sql, value, (err, res) => {
                 if (err) reject(err);
                 resolve(res);
@@ -81,8 +162,8 @@ module.exports = class ModelTask {
 
     static deleteByID(id) {
         return new Promise((resolve, reject) => {
-            let sql = "";
-            let value = [];
+            let sql = "DELETE FROM Tasks WHERE Tasks.taskID = ?";
+            let value = [id];
             DataBase.con.query(sql, value, (err, res) => {
                 if (err) reject(err);
                 resolve(res);

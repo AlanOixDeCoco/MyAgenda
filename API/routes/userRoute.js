@@ -1,21 +1,24 @@
 const express = require("express");
 const router = express.Router();
 const controller = require("../controllers/userController");
+const authToken = require("../authentication/authToken");
 
 // GET
 router.get('/', controller.get);
+router.get('/me', authToken.authToken, controller.getLogin);
 router.get('/:userID', controller.getID);
-router.get('/:userID/groups', controller.getGroup);
+router.get('/me/groups', authToken.authToken, controller.getGroup);
+router.get('/me/tasks', authToken.authToken, controller.getTask);
+router.get('/me/agendas', authToken.authToken, controller.getAgenda);
 
-// POST
-router.post('/', controller.post);
+//POST
+router.post('/me/groups', authToken.authToken, controller.postGroup);
 
 // PUT
-router.put('/', controller.put);
-router.put('/:userID', controller.putByID);
-router.put('/:userID/groups', controller.putGroupByID);
+router.put('/me', authToken.authToken, controller.put);
 
 // DELETE
-router.delete('/:userID', controller.delete);
+router.delete('/me/groups', authToken.authToken, controller.deleteGroup);
+router.delete('/me', authToken.authToken, controller.delete);
 
 module.exports = router;

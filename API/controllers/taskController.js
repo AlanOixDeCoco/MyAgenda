@@ -1,4 +1,5 @@
 const model = require("../models/taskModel");
+const Error = require("../Errors/errors");
 
 module.exports = {
 
@@ -14,26 +15,35 @@ module.exports = {
             offset = Number(req.query.offset);
 
         model.selectAll(limit, offset)
-            .then((res) => {
-
+            .then((results) => {
+                res.send(JSON.stringify(results));
             })
-            .catch((err) => console.error(err));
+            .catch((err) => {
+                console.error(err);
+                Error.BadSyntax(res);
+            });
     },
 
     getID: (req, res) => {
         model.selectID(req.params.taskID)
-            .then((res) => {
-
+            .then((results) => {
+                res.send(JSON.stringify(results));
             })
-            .catch((err) => console.error(err));
+            .catch((err) => {
+                console.error(err);
+                Error.NotFound(res, "Task");
+            });
     },
 
     getGroup: (req, res) => {
         model.selectGroupByID(req.params.taskID)
-            .then((res) => {
-
+            .then((results) => {
+                res.send(JSON.stringify(results));
             })
-            .catch((err) => console.error(err));
+            .catch((err) => {
+                console.error(err);
+                Error.NotFound(res, "Task");
+            });
     },
 
 
@@ -45,10 +55,13 @@ module.exports = {
         });
 
         model.insert(tasks)
-            .then((res) => {
-
+            .then((results) => {
+                res.send(JSON.stringify(results));
             })
-            .catch((err) => console.error(err));
+            .catch((err) => {
+                console.error(err);
+                Error.BadSyntax(res);
+            });
     },
 
 
@@ -56,48 +69,41 @@ module.exports = {
     put: (req, res) => {
         let tasks = [];
         req.body.tasks.forEach(task => {
-            if (typeof task.id !== 'undefined') {
+            if (typeof task.taskID !== 'undefined') {
                 tasks.push(task);
             }
         });
 
         model.update(tasks)
-            .then((res) => {
-
+            .then((results) => {
+                res.send(JSON.stringify(results));
             })
-            .catch((err) => console.error(err));
+            .catch((err) => {
+                console.error(err);
+                Error.BadSyntax(res);
+            });
     },
 
     putByID: (req, res) => {
         model.updateByID(req.params.taskID, req.body.task)
-            .then((res) => {
-
+            .then((results) => {
+                res.send(JSON.stringify(results));
             })
-            .catch((err) => console.error(err));
+            .catch((err) => {
+                console.error(err);
+                Error.BadSyntax(res);
+            });
     },
-
-    putGroupByID: (req, res) => {
-        let groups = [];
-        req.body.groups.forEach(group => {
-            if (typeof group.id !== 'undefined') {
-                groups.push(group);
-            }
-        })
-
-        model.updateGroupByID(req.params.taskID, groups)
-            .then((res) => {
-
-            })
-            .catch((err) => console.error(err));
-    },
-
 
     // DELETE
     delete: (req, res) => {
         model.deleteByID(req.params.taskID)
-            .then((res) => {
-
+            .then((results) => {
+                res.send(JSON.stringify(results));
             })
-            .catch((err) => console.error(err));
+            .catch((err) => {
+                console.error(err);
+                Error.BadSyntax(res);
+            });
     }
 }

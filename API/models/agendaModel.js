@@ -4,8 +4,8 @@ module.exports = class ModelAgenda {
 
     static selectAll(limit, offset) {
         return new Promise((resolve, reject) => {
-            let sql = "";
-            let value = [];
+            let sql = "SELECT agendaID, name FROM Agendas LIMIT ? OFFSET ?";
+            let value = [limit, offset];
             DataBase.con.query(sql, value, (err, res) => {
                 if (err) reject(err);
                 resolve(res);
@@ -15,8 +15,8 @@ module.exports = class ModelAgenda {
 
     static selectID(id) {
         return new Promise((resolve, reject) => {
-            let sql = "";
-            let value = [];
+            let sql = "SELECT name FROM Agendas WHERE agendaID = ?";
+            let value = [id];
             DataBase.con.query(sql, value, (err, res) => {
                 if (err) reject(err);
                 resolve(res);
@@ -26,8 +26,8 @@ module.exports = class ModelAgenda {
 
     static selectGroupByID(id) {
         return new Promise((resolve, reject) => {
-            let sql = "";
-            let value = [];
+            let sql = "SELECT Groups.groupID, Groups.name, Groups.parentID FROM Groups WHERE Groups.agendaID = ?";
+            let value = [id];
             DataBase.con.query(sql, value, (err, res) => {
                 if (err) reject(err);
                 resolve(res);
@@ -37,8 +37,8 @@ module.exports = class ModelAgenda {
 
     static selectTaskByID(id, limit, offset) {
         return new Promise((resolve, reject) => {
-            let sql = "";
-            let value = [];
+            let sql = "SELECT Tasks.taskID, Tasks.name, Tasks.description, Tasks.deadline, Tasks.creation, Tasks.groupID, subjectID FROM Tasks WHERE Tasks.agendaID = ? LIMIT ? OFFSET ?";
+            let value = [id, limit, offset];
             DataBase.con.query(sql, value, (err, res) => {
                 if (err) reject(err);
                 resolve(res);
@@ -48,8 +48,8 @@ module.exports = class ModelAgenda {
 
     static selectSubjectByID(id) {
         return new Promise((resolve, reject) => {
-            let sql = "";
-            let value = [];
+            let sql = "SELECT Subjects.subjectID, Subjects.name FROM Subjects WHERE Subjects.agendaID = ?";
+            let value = [id];
             DataBase.con.query(sql, value, (err, res) => {
                 if (err) reject(err);
                 resolve(res);
@@ -59,8 +59,13 @@ module.exports = class ModelAgenda {
 
     static insert(agendas) {
         return new Promise((resolve, reject) => {
-            let sql = "";
+            let sql = "INSERT INTO Agendas (name) VALUES";
             let value = [];
+            agendas.forEach(agenda => {
+                sql += "(?), ";
+                value.push(agenda.name);
+            });
+            sql = sql.slice(0, -2) + ";";
             DataBase.con.query(sql, value, (err, res) => {
                 if (err) reject(err);
                 resolve(res);
@@ -72,6 +77,17 @@ module.exports = class ModelAgenda {
         return new Promise((resolve, reject) => {
             let sql = "";
             let value = [];
+            agendas.forEach(agenda => {
+                sql += "UPDATE Agendas SET ";
+
+                if (typeof agenda.name !== 'undefined') {
+                    sql += "Agendas.name = ? ";
+                    value.push(agenda.name);
+                }
+
+                sql += "WHERE Agendas.agendaID = ?; ";
+                value.push(agenda.agendaID);
+            })
             DataBase.con.query(sql, value, (err, res) => {
                 if (err) reject(err);
                 resolve(res);
@@ -81,8 +97,16 @@ module.exports = class ModelAgenda {
 
     static updateByID(id, agenda) {
         return new Promise((resolve, reject) => {
-            let sql = "";
+            let sql = "UPDATE Agendas SET "
             let value = [];
+            if (typeof agenda !== 'undefined') {
+                if (typeof agenda.name !== 'undefined') {
+                    sql += "name = ?";
+                    value.push(agenda.name);
+                }
+                sql += " WHERE agendaID = ?";
+                value.push(id);
+            }
             DataBase.con.query(sql, value, (err, res) => {
                 if (err) reject(err);
                 resolve(res);
@@ -94,6 +118,13 @@ module.exports = class ModelAgenda {
         return new Promise((resolve, reject) => {
             let sql = "";
             let value = [];
+
+            groups.forEach(group => {
+                sql += "UPDATE Groups SET Groups.agendaID = ? WHERE Groups.groupID = ?; ";
+                value.push(id);
+                value.push(group.groupID);
+            })
+
             DataBase.con.query(sql, value, (err, res) => {
                 if (err) reject(err);
                 resolve(res);
@@ -103,8 +134,9 @@ module.exports = class ModelAgenda {
 
     static deleteByID(id) {
         return new Promise((resolve, reject) => {
-            let sql = "";
-            let value = [];
+            let sql = "DELETE FROM Agendas WHERE Agendas.agendaID = ?";
+            let value = [id];
+
             DataBase.con.query(sql, value, (err, res) => {
                 if (err) reject(err);
                 resolve(res);

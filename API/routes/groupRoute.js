@@ -14,9 +14,9 @@ router.post('/', controller.post);
 
 // PUT
 router.put('/', controller.put);
-router.put('/:userID', controller.putByID);
+router.put('/:groupID', controller.putByID);
 
 // DELETE
-router.delete('/:userID', controller.delete);
+router.delete('/:groupID', controller.delete);
 
 module.exports = router;

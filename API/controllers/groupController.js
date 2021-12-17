@@ -1,4 +1,5 @@
 const model = require("../models/groupModel");
+const Error = require("../Errors/errors");
 
 module.exports = {
 
@@ -14,18 +15,24 @@ module.exports = {
             offset = Number(req.query.offset);
 
         model.selectAll(limit, offset)
-            .then((res) => {
-
+            .then((results) => {
+                res.send(JSON.stringify(results));
             })
-            .catch((err) => console.error(err));
+            .catch((err) => {
+                console.error(err);
+                Error.BadSyntax(res);
+            });
     },
 
     getID: (req, res) => {
         model.selectID(req.params.groupID)
-            .then((res) => {
-
+            .then((results) => {
+                res.send(JSON.stringify(results));
             })
-            .catch((err) => console.error(err));
+            .catch((err) => {
+                console.error(err);
+                Error.BadSyntax(res);
+            });
     },
 
     getUser: (req, res) => {
@@ -39,18 +46,24 @@ module.exports = {
             offset = Number(req.query.offset);
 
         model.selectUserByID(req.params.groupID, limit, offset)
-            .then((res) => {
-
+            .then((results) => {
+                res.send(JSON.stringify(results));
             })
-            .catch((err) => console.error(err));
+            .catch((err) => {
+                console.error(err);
+                Error.BadSyntax(res);
+            });
     },
 
     getParent: (req, res) => {
         model.selectParentByID(req.params.groupID)
-            .then((res) => {
+            .then((results) => {
 
             })
-            .catch((err) => console.error(err));
+            .catch((err) => {
+                console.error(err);
+                Error.BadSyntax(res);
+            });
     },
 
     getTask: (req, res) => {
@@ -64,10 +77,13 @@ module.exports = {
             offset = Number(req.query.offset);
 
         model.selectTasksByID(req.params.groupID, limit, offset)
-            .then((res) => {
-
+            .then((results) => {
+                res.send(JSON.stringify(results));
             })
-            .catch((err) => console.error(err));
+            .catch((err) => {
+                console.error(err);
+                Error.BadSyntax(res);
+            });
     },
 
 
@@ -79,10 +95,13 @@ module.exports = {
         });
 
         model.insert(groups)
-            .then((res) => {
-
+            .then((results) => {
+                res.send(JSON.stringify(results));
             })
-            .catch((err) => console.error(err));
+            .catch((err) => {
+                console.error(err);
+                Error.BadSyntax(res);
+            });
     },
 
 
@@ -90,33 +109,42 @@ module.exports = {
     put: (req, res) => {
         let groups = [];
         req.body.groups.forEach(group => {
-            if (typeof group.id !== 'undefined') {
+            if (typeof group.groupID !== 'undefined') {
                 groups.push(group);
             }
         });
 
         model.update(groups)
-            .then((res) => {
-
+            .then((results) => {
+                res.send(JSON.stringify(results));
             })
-            .catch((err) => console.error(err));
+            .catch((err) => {
+                console.error(err);
+                Error.BadSyntax(res);
+            });
     },
 
     putByID: (req, res) => {
         model.updateByID(req.params.groupID, req.body.group)
-            .then((res) => {
-
+            .then((results) => {
+                res.send(JSON.stringify(results));
             })
-            .catch((err) => console.error(err));
+            .catch((err) => {
+                console.error(err);
+                Error.BadSyntax(res);
+            });
     },
 
 
     // DELETE
     delete: (req, res) => {
         model.deleteByID(req.params.groupID)
-            .then((res) => {
-
+            .then((results) => {
+                res.send(JSON.stringify(results));
             })
-            .catch((err) => console.error(err));
+            .catch((err) => {
+                console.error(err);
+                Error.BadSyntax(res);
+            });
     }
 }

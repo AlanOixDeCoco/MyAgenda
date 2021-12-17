@@ -30,7 +30,7 @@ function submitLogin(email, password){
 }
 
 function submitRegister(username, email, password){
-    var psw = forge.md.sha512.create();
+    var psw = forge.md.sha512.create(); // La on est pas crackable normalement
     psw.update(password);
     var hashed = psw.digest().toHex();
     registerRequest(username, email, hashed);
@@ -45,7 +45,29 @@ function switchToRegister(){
 }
 
 function registerRequest(username, email, password){
-    console.log(username + " / " + email + " / " + password);
+    var settings = {
+        "url": API_URL + "/auth/register",
+        "method": "POST",
+        "timeout": 0,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "data": JSON.stringify({
+          "user": {
+            "username": "user",
+            "email": "user@gmail.com",
+            "password": "password"
+          }
+        })
+      };
+      
+      $.ajax(settings).done(function (response) {
+        console.log(response);
+      });
+};
+
+/*
+console.log(username + " / " + email + " / " + password);
     var toSend = {};
     toSend.user = {};
     toSend.user.username = username;
@@ -62,29 +84,31 @@ function registerRequest(username, email, password){
             console.log("Error while requesting register : " + errorMessage);
         }, 
     });
-};
+*/
 
 function loginRequest(email, password){
-    console.log(email + " / " + password);
-    var toSend = {};
-    toSend.user = {};
-    toSend.user.email = email;
-    toSend.user.password= password;
-    $.ajax({
-        type: "POST",
-        url: API_URL + "/auth/login",
-        data: toSend,
-        success: function(result, status, xhr){
-            console.log(result.accessToken);
-            localStorage['myAgendasToken'] = result.accessToken;
-            window.location.href = "mainpage.html";
+    var settings = {
+        "url": API_URL + "/auth/login",
+        "method": "POST",
+        "timeout": 0,
+        "headers": {
+            "Content-Type": "application/json"
         },
-        error: function(response, error, errorMessage){
-            console.log("Error while requesting login : " + errorMessage);
-        },
+        "data": JSON.stringify({
+          "user": {
+            "email": email,
+            "password": password
+          }
+        })
+    };
+    $.ajax(settings).done(function (response) {
+        console.log(response.accessToken);
+        localStorage['myAgendasToken'] = response.accessToken;
+        window.location.href = "mainpage.html";
     });
-};
+}
 
+/*
 $(document).ready(function(){
     console.log("Current token : " + localStorage['myAgendasToken']);
     $.ajax({
@@ -102,3 +126,4 @@ $(document).ready(function(){
         }, 
     });
 })
+*/

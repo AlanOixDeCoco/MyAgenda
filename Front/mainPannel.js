@@ -25,11 +25,14 @@ function generateCategoryBlock(id, name, groups, done, total, next_deadline, rem
 }
 
 // classe garante de l'affichage du contenu de l'agenda
-function MainPannel(){
+function AgendaHandler(){
     this.update = function(agenda_id){
         $("#agendaContent").html("");
         var categories = ["", ""];
         categories.forEach(category => {
+            done = "x";
+            total = "xx";
+            next_deadline = "99/99/9999";
             $("#agendaContent").append(generateCategoryBlock(category.id, category.name, "faire traitement groupe affichage", done, total, next_deadline));
         });
         $("#agendaContent").append(`<center><img id="${agenda_id}" class="addImage clickable" src="icons/nav/add_round.png" onclick="addCategory(this.id)"></center>`);

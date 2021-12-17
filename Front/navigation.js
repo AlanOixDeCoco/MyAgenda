@@ -90,6 +90,7 @@ function getCurrentAgendaName(){
 
 let nav_handler = new Nav();
 let popupHandler = new PopupHandler();
+let agendaHandler = new AgendaHandler();
 
 // Evenements
 $("#navIcon").click(nav_handler.press_left_nav);
@@ -97,6 +98,10 @@ $("#navIcon").click(nav_handler.press_left_nav);
 function addAgenda(){
     popupHandler.setPopup(new AddAgendaPopup());
     popupHandler.showPopup();
+}
+
+function editAgenda(agenda_id){
+    console.log(agenda_id);
 }
 
 function categoryClicked(subject_id){
@@ -118,5 +123,7 @@ function addCategory(agenda_id){
 }
 
 $(document).ready(function(){
+    console.log("User token : " + localStorage['currentAgendaID']);
     getMyGroups();
+    agendaHandler.update();
 });

@@ -89,26 +89,34 @@ function getCurrentAgendaName(){
 }
 
 let nav_handler = new Nav();
+let popupHandler = new PopupHandler();
 
 // Evenements
 $("#navIcon").click(nav_handler.press_left_nav);
 
-$(document).ready(function(){
-    console.log("Token : " + localStorage['myAgendasToken']);
-    $.ajax({
-        type: "GET",
-        url: API_URL + "/users/me",
-        dataType: "json",
-        headers: {
-            "Authorization": "Bearer " + localStorage['myAgendasToken']
-        },
-        success: function(result, status, xhr){
-            console.log(result[0].username)
-        },
-        error: function(response){
-            console.log("Error: " + response);
-        }, 
-    });
-    console.log(getMyGroups());
-});
+function addAgenda(){
+    popupHandler.setPopup(new AddAgendaPopup());
+    popupHandler.showPopup();
+}
 
+function categoryClicked(subject_id){
+    popupHandler.setPopup(new CategoryPopup(subject_id));
+    popupHandler.showPopup();
+}
+
+function closePopupClicked(){
+    popupHandler.hidePopup();
+}
+
+function addTask(subject_id){
+    popupHandler.setPopup(new AddTaskPopup(subject_id));
+}
+
+function addCategory(agenda_id){
+    popupHandler.setPopup(new AddCategoryPopup(agenda_id));
+    popupHandler.showPopup();
+}
+
+$(document).ready(function(){
+    getMyGroups();
+});

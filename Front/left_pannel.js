@@ -26,8 +26,8 @@ function generateAgendaBlock(name, categories){
 function LeftPannel(){
     this.update = function(){
         $("#agendasList").html(generateAgendaBlock("test", ["test_", "test__", "test___"]));
-        $("#agendasList").append(generateAgendaBlock("test", ["test_", "test__", "test___"]));
-        $("#agendasList").append(`<center><img id="addAgenda" class="clickable" src="icons/nav/add.png"></center>`);
+        $("#agendasList").append(generateAgendaBlock("test", ["test_", "test__"]));
+        $("#agendasList").append(`<center><img class="addImage clickable" src="icons/nav/add.png" onclick="addAgenda()"></center>`);
     }
 
     this.update_state = function(nav_state) {

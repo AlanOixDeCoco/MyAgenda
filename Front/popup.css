@@ -1,0 +1,108 @@
+/* IDs */
+#popup{
+    font-weight: 300;
+    font-size: 4vw;
+    z-index: 20;
+    position: fixed;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    background: #FFFFFF;
+    padding: 3vw 3vw 0 3vw;
+    top: 50%;
+    left: 50vw;
+    border-radius: 5vw;
+}
+
+/* CLASSES */
+.showPopup{ /* permet d'afficher la popup */
+    margin-top: -42vh;
+    margin-left: -44vw;
+    visibility: visible;
+    width: 82vw;
+    height: 80vh;
+    transition: .5s;
+}
+
+.hidePopup{ /* permet d'afficher la popup */
+    margin-top: 0;
+    margin-left: 0;
+    width: 0;
+    height: 0;
+    opacity: 0;
+    visibility: hidden;
+    border-radius: 0;
+    transition: .5s;
+}
+
+.closePopup{
+    width: 8vw;
+}
+
+.categoryTask{
+    display: flex;
+    flex-direction: column;
+    border-radius: 4vw;
+    box-shadow: inset 0 .3vw .6vw #00000086;
+    padding: 2.5vw;
+    margin-bottom: 3vw;
+}
+
+.infoLine{
+    margin-bottom: 2vw;
+}
+
+.titleLine p{
+    font-size: 8vw;
+    font-weight: 600;
+    margin-left: 0vw;
+}
+
+.descriptionLine{
+    height: auto;
+    margin-left: -2vw;
+}
+
+.linkLine a{
+    margin: 0;
+    font-size: 6vw;
+}
+
+.lastEditDateLine{
+    margin-top: 2vw;
+    opacity: .5;
+}
+
+.addTaskName{
+    font-size: 5vw;
+    font-weight: 500;
+}
+
+.addTaskBlock{
+    display: flex;
+    flex-direction: column;
+    margin-top: 1vw;
+    padding: 3vw;
+    background: grey;
+}
+
+.addTaskBlock input{
+    height: 8vw;
+    margin-bottom: 2vw;
+    padding: 0 2vw;
+    font-size: 4vw;
+}
+
+.taskGroupChoice select{
+    margin-top: 2vw;
+    width: 100%;
+    height: 8vw;
+    font-size: 4vw;
+    padding-left: 2vw;
+}
+
+.addTaskBlock button{
+    margin-top: 2vw;
+    height: 8vw;
+    font-size: 5vw;
+}

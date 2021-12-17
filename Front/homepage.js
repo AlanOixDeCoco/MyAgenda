@@ -1,4 +1,4 @@
-const API_URL = "http://51.15.83.20:3001";
+const API_URL = "http://51.15.83.20:3000";
 
 const registerBoxTemplate = ("<div id='registerBox'>\n"
                         + "\t<h1>Créer un compte</h1>\n"

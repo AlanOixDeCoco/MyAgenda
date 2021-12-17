@@ -6,7 +6,7 @@ URL to the online site :
 
 ## Authors
 
-Colin OLIVIER, Alan SALAÜN, Pierre VANDEL
+Colin OLIVIER (API), Alan SALAÜN, Pierre VANDEL
 
 ## Features Achieved
 

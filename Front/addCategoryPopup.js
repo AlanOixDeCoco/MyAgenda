@@ -14,12 +14,11 @@ function AddCategoryPopup(c_agenda_id){
     let popupDiv = $("#popup");
     let agenda_id = c_agenda_id;
     this.update = function(){
-        popupDiv.html(generateAddCategoryContent(agenda_id, "agendaName"));
+        popupDiv.html(generateAddCategoryContent(agenda_id, $("#navText").text()));
     }
 }
 
 function submitAddCategory(agenda_id, categoryName){
-    console.log(agenda_id + "/" + categoryName);
     var settings = {
         "url": API_URL + "/subjects",
         "method": "POST",
@@ -39,6 +38,6 @@ function submitAddCategory(agenda_id, categoryName){
       };
       
       $.ajax(settings).done(function (response) {
-        console.log(response);
+        location.reload();
       });
 }

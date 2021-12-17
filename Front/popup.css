@@ -93,12 +93,20 @@
     font-size: 4vw;
 }
 
+.groupsWrapper{
+    
+}
+
 .taskGroupChoice select{
     margin-top: 2vw;
     width: 100%;
     height: 8vw;
     font-size: 4vw;
     padding-left: 2vw;
+}
+
+.groupOption{
+    font-size: 4vw;
 }
 
 .addTaskBlock button{

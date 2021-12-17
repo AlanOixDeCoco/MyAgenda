@@ -34,7 +34,7 @@ module.exports = {
             })
             .catch((err) => {
                 console.error(err);
-                Error.BadSytax(res);
+                Error.BadSyntax(res);
             });
     }
 }

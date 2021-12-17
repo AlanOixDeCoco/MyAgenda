@@ -36,6 +36,7 @@ module.exports = class ModelTask {
     }
 
     static insert(tasks) {
+        // ADD description
         return new Promise((resolve, reject) => {
             let sql = "INSERT INTO Tasks (name, deadline, creation, agendaID, groupID) VALUES";
             let value = [];

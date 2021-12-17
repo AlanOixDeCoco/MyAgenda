@@ -2,15 +2,11 @@
 
 Collaborative agenda in development as part of a WEB course project.
 Development of a REST API and implementation in a dynamic site.
+URL to the online site : 
 
 ## Authors
 
-Colin OLIVIER
-Alan SALAÜN
-Pierre VANDEL
-
-For this we used the Express.js framework and created a JSON REST API.
-URL to the online site :
+Colin OLIVIER, Alan SALAÜN, Pierre VANDEL
 
 ## Features Achieved
 

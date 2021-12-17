@@ -30,7 +30,7 @@ function MainPannel(){
         $("#agendaContent").html("");
         var categories = ["", ""];
         categories.forEach(category => {
-            $("#agendaContent").append(generateCategoryBlock(category.id, category.name, "faire traitement groupe affichage"));
+            $("#agendaContent").append(generateCategoryBlock(category.id, category.name, "faire traitement groupe affichage", done, total, next_deadline));
         });
         $("#agendaContent").append(`<center><img id="${agenda_id}" class="addImage clickable" src="icons/nav/add_round.png" onclick="addCategory(this.id)"></center>`);
     }

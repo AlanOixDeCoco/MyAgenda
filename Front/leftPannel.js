@@ -25,6 +25,7 @@ function generateAgendaBlock(name, categories){
 // Classe panneau de contenu gauche
 function LeftPannel(){
     this.update = function(){
+        var agendas = []; // recup agendas (users/me/agendas w/ token)
         $("#agendasList").html(generateAgendaBlock("test", ["test_", "test__", "test___"]));
         $("#agendasList").append(generateAgendaBlock("test", ["test_", "test__"]));
         $("#agendasList").append(`<center><img class="addImage clickable" src="icons/nav/add.png" onclick="addAgenda()"></center>`);
@@ -47,4 +48,8 @@ function search(text, key){
     if(key === "Enter"){
         alert(text.value);
     }
+}
+
+function selectAgenda(agenda_id){
+    console.log(agenda_id);
 }

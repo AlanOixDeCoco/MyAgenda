@@ -1,4 +1,5 @@
 const model = require("../models/subjectModel");
+const Error = require("../Errors/errors");
 
 module.exports = {
 
@@ -14,18 +15,24 @@ module.exports = {
             offset = Number(req.query.offset);
 
         model.selectAll(limit, offset)
-            .then((res) => {
-
+            .then((results) => {
+                res.send(JSON.stringify(results));
             })
-            .catch((err) => console.error(err));
+            .catch((err) => {
+                console.error(err);
+                Error.BadSyntax(res);
+            });
     },
 
     getID: (req, res) => {
         model.selectID(req.params.subjectID)
-            .then((res) => {
-
+            .then((results) => {
+                res.send(JSON.stringify(results));
             })
-            .catch((err) => console.error(err));
+            .catch((err) => {
+                console.error(err);
+                Error.NotFound(res, "Agenda");
+            });
     },
 
     getTask: (req, res) => {
@@ -39,10 +46,13 @@ module.exports = {
             offset = Number(req.query.offset);
 
         model.selectTasksByID(req.params.subjectID, limit, offset)
-            .then((res) => {
-
+            .then((results) => {
+                res.send(JSON.stringify(results));
             })
-            .catch((err) => console.error(err));
+            .catch((err) => {
+                console.error(err);
+                Error.BadSyntax(res);
+            });
     },
 
 
@@ -54,10 +64,13 @@ module.exports = {
         });
 
         model.insert(subjects)
-            .then((res) => {
-
+            .then((results) => {
+                res.send(JSON.stringify(results));
             })
-            .catch((err) => console.error(err));
+            .catch((err) => {
+                console.error(err);
+                Error.BadSyntax(res);
+            });
     },
 
 
@@ -65,34 +78,43 @@ module.exports = {
     put: (req, res) => {
         let subjects = [];
         req.body.subjects.forEach(subject => {
-            if (typeof subject.id !== 'undefined') {
+            if (typeof subject.subjectID !== 'undefined') {
                 subjects.push(subject);
             }
         });
 
         model.update(subjects)
-            .then((res) => {
-
+            .then((results) => {
+                res.send(JSON.stringify(results));
             })
-            .catch((err) => console.error(err));
+            .catch((err) => {
+                console.error(err);
+                Error.BadSyntax(res);
+            });
     },
 
     putByID: (req, res) => {
         model.updateByID(req.params.subjectID, req.body.subject)
-            .then((res) => {
-
+            .then((results) => {
+                res.send(JSON.stringify(results));
             })
-            .catch((err) => console.error(err));
+            .catch((err) => {
+                console.error(err);
+                Error.BadSyntax(res);
+            });
     },
 
 
     // DELETE
     delete: (req, res) => {
         model.deleteByID(req.params.subjectID)
-            .then((res) => {
-
+            .then((results) => {
+                res.send(JSON.stringify(results));
             })
-            .catch((err) => console.error(err));
+            .catch((err) => {
+                console.error(err);
+                Error.BadSyntax(res);
+            });
     }
 
 }

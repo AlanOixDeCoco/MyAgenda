@@ -23,7 +23,10 @@ module.exports = {
     getID: (req, res) => {
         model.selectID(req.params.userID)
             .then((results) => {
-                res.send(JSON.stringify(results));
+                if (typeof results[0] !== 'undefined')
+                    res.send(JSON.stringify(results));
+                else
+                    res.sendStatus(403);
             })
             .catch((err) => console.error(err));
     },

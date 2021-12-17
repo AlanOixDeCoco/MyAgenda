@@ -1,6 +1,7 @@
 require('dotenv').config();
 const model = require("../models/authModel");
 const jwt = require('jsonwebtoken');
+const Error = require('../Errors/errors');
 
 module.exports = {
 
@@ -11,7 +12,7 @@ module.exports = {
             })
             .catch((err) => {
                 console.error(err);
-                res.sendStatus(403);
+                Error.BadRequest(res);
             });
     },
 
@@ -26,9 +27,14 @@ module.exports = {
                     }
                     let accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET);
                     res.send({ accessToken: accessToken });
-                } else
-                    res.sendStatus(401);
+                } else {
+                    console.error(err);
+                    Error.NotFound(res, "User");
+                }
             })
-            .catch((err) => res.sendStatus(403));
+            .catch((err) => {
+                console.error(err);
+                Error.BadSytax(res);
+            });
     }
 }

@@ -90,43 +90,41 @@ module.exports = class ModelUser {
 
     static updateByID(id, user) {
         return new Promise((resolve, reject) => {
+            let sql = "UPDATE Users SET "
+            let value = [];
             if (typeof user !== 'undefined') {
-                let sql = "UPDATE Users SET "
-                let value = [];
 
                 if (typeof user.username !== 'undefined') {
-                    sql += "username = ? ";
+                    sql += "username = ?, ";
                     value.push(user.username);
                 }
                 if (typeof user.password !== 'undefined') {
-                    sql += "password = ? ";
+                    sql += "password = ?, ";
                     value.push(user.password);
                 }
                 if (typeof user.email !== 'undefined') {
-                    sql += "email = ? ";
+                    sql += "email = ?, ";
                     value.push(user.email);
                 }
                 if (typeof user.status !== 'undefined') {
-                    sql += "status = ? ";
+                    sql += "status = ?, ";
                     value.push(user.status);
                 }
-                if (typeof user.img_link !== 'undefined') {
-                    sql += "img_link = ? ";
-                    value.push(user.img_link);
+                if (typeof user.link_img !== 'undefined') {
+                    sql += "link_img = ?, ";
+                    value.push(user.link_img);
                 }
                 if (typeof user.color !== 'undefined') {
-                    sql += "color = ? ";
+                    sql += "color = ?, ";
                     value.push(user.color);
                 }
-                sql += "WHERE userID = ?;";
+                sql = sql.slice(0, -2) + " WHERE userID = ?;";
                 value.push(id);
-
-                DataBase.con.query(sql, value, (err, res) => {
-                    if (err) reject(err);
-                    resolve(res);
-                })
-            } else
-                reject(new Error);
+            }
+            DataBase.con.query(sql, value, (err, res) => {
+                if (err) reject(err);
+                resolve(res);
+            })
         })
     }
 
@@ -156,7 +154,6 @@ module.exports = class ModelUser {
                 sql += "?, "
             });
             sql = sql.slice(0, -2) + ")";
-            console.log(sql);
             DataBase.con.query(sql, value, (err, res) => {
                 if (err) reject(err);
                 resolve(res);

@@ -13,7 +13,6 @@ router.post('/', controller.post);
 // PUT
 router.put('/', controller.put);
 router.put('/:taskID', controller.putByID);
-router.put('/:taskID/groups', controller.putGroupByID);
 
 // DELETE
 router.delete('/:taskID', controller.delete);

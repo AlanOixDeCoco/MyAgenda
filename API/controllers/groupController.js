@@ -1,4 +1,5 @@
 const model = require("../models/groupModel");
+const Error = require("../Errors/errors");
 
 module.exports = {
 
@@ -17,7 +18,10 @@ module.exports = {
             .then((results) => {
                 res.send(JSON.stringify(results));
             })
-            .catch((err) => console.error(err));
+            .catch((err) => {
+                console.error(err);
+                Error.BadSyntax(res);
+            });
     },
 
     getID: (req, res) => {
@@ -25,7 +29,10 @@ module.exports = {
             .then((results) => {
                 res.send(JSON.stringify(results));
             })
-            .catch((err) => console.error(err));
+            .catch((err) => {
+                console.error(err);
+                Error.BadSyntax(res);
+            });
     },
 
     getUser: (req, res) => {
@@ -42,7 +49,10 @@ module.exports = {
             .then((results) => {
                 res.send(JSON.stringify(results));
             })
-            .catch((err) => console.error(err));
+            .catch((err) => {
+                console.error(err);
+                Error.BadSyntax(res);
+            });
     },
 
     getParent: (req, res) => {
@@ -50,7 +60,10 @@ module.exports = {
             .then((results) => {
 
             })
-            .catch((err) => console.error(err));
+            .catch((err) => {
+                console.error(err);
+                Error.BadSyntax(res);
+            });
     },
 
     getTask: (req, res) => {
@@ -67,7 +80,10 @@ module.exports = {
             .then((results) => {
 
             })
-            .catch((err) => console.error(err));
+            .catch((err) => {
+                console.error(err);
+                Error.BadSyntax(res);
+            });
     },
 
 
@@ -80,9 +96,12 @@ module.exports = {
 
         model.insert(groups)
             .then((results) => {
-
+                res.send(JSON.stringify(results));
             })
-            .catch((err) => console.error(err));
+            .catch((err) => {
+                console.error(err);
+                Error.BadSyntax(res);
+            });
     },
 
 
@@ -90,24 +109,30 @@ module.exports = {
     put: (req, res) => {
         let groups = [];
         req.body.groups.forEach(group => {
-            if (typeof group.id !== 'undefined') {
+            if (typeof group.groupID !== 'undefined') {
                 groups.push(group);
             }
         });
 
         model.update(groups)
             .then((results) => {
-
+                res.send(JSON.stringify(results));
             })
-            .catch((err) => console.error(err));
+            .catch((err) => {
+                console.error(err);
+                Error.BadSyntax(res);
+            });
     },
 
     putByID: (req, res) => {
         model.updateByID(req.params.groupID, req.body.group)
             .then((results) => {
-
+                res.send(JSON.stringify(results));
             })
-            .catch((err) => console.error(err));
+            .catch((err) => {
+                console.error(err);
+                Error.BadSyntax(res);
+            });
     },
 
 
@@ -115,8 +140,11 @@ module.exports = {
     delete: (req, res) => {
         model.deleteByID(req.params.groupID)
             .then((results) => {
-
+                res.send(JSON.stringify(results));
             })
-            .catch((err) => console.error(err));
+            .catch((err) => {
+                console.error(err);
+                Error.BadSyntax(res);
+            });
     }
 }
